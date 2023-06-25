@@ -23,5 +23,3 @@ def get_footer():
     🚀 Telegram: [ArsentyevaSchool](https://t.me/arsentyevaschool) \n
     📧 Email: n.shevyrev@gmail.com
     """)
-
-    st.markdown
