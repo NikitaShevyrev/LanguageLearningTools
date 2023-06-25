@@ -213,8 +213,8 @@ def get_basic_module(
 
 def get_accessible_wordpairs_section():
 
-    pics_path = "free_materials\preview_pics"
-    pics_names = [basename(name) for name in glob(pics_path + "\*.jpg")]
+    pics_path = "free_materials/preview_pics"
+    pics_names = [basename(name) for name in glob(pics_path + "/*.jpg")]
 
     with open('free_materials/files_dict.json', 'r') as f:
         files_dict = load(f)    
@@ -232,7 +232,7 @@ def get_accessible_wordpairs_section():
 
             col1, col2 = st.columns(2)
             with col1:
-                image = Image.open(f"{pics_path}\{name}")
+                image = Image.open(f"{pics_path}/{name}")
                 st.image(image)
 
             with col2:
