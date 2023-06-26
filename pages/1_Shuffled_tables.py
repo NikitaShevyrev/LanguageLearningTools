@@ -1,5 +1,5 @@
 import streamlit as st
-from page_supplementaries import get_sidebar, get_footer
+from page_supplementaries import get_sidebar, get_footer, get_data_button, delete_data_from_sessionstate
 from src.shuffled_table import get_shuffled_table, get_filelike_table
 
 from deep_translator import GoogleTranslator
@@ -164,7 +164,7 @@ def get_basic_module(
         with col2b:
             if disabled:
                 try:
-                    offer_translation = st.session_state[f'translation_{key}']                
+                    offer_translation = st.session_state[f'translation_{key}']
                 except:
                     offer_translation = predefined_translation
             
@@ -238,14 +238,20 @@ def get_accessible_wordpairs_section():
             with col2:
                 st.markdown("### About video")
                 st.markdown(files_dict[name]['description'])
-                st.markdown(
-                    f"<a href='{link}'><img src='data:image/png;base64,{data_url}' class='img-fluid' width='64'>",
-                    unsafe_allow_html=True
-                )
+
+                col3, col4 = st.columns(2)
+
+                with col3:
+                    st.markdown(
+                        f"<a href='{link}'><img src='data:image/png;base64,{data_url}' class='img-fluid' width='64'>",
+                        unsafe_allow_html=True
+                    )
+                with col4:
+                    get_data_button('english', files_dict[name]['english'], 'russian', files_dict[name]['russian'], name)
+                    if st.session_state[f'data_btn_{name}']:
+                        delete_data_from_sessionstate(name, pics_names)
             
             st.divider()
-
-            get_basic_module('english', files_dict[name]['english'], 'russian', files_dict[name]['russian'], name)
 
 
 # >>>> ######### #########
@@ -270,8 +276,26 @@ with tab_eng_rus:
     get_accessible_wordpairs_section()
 
 with tab_creator:
-    get_basic_module()
+    get_data_button('', [], '', [], 'creator')
+    # get_basic_module()
 
+
+placeholder = st.empty()
+
+try:
+    lang1 = st.session_state['lang1']
+    lang1_words = st.session_state['lang1_words']
+    lang2 = st.session_state['lang2']
+    lang2_words = st.session_state['lang2_words']
+    name = st.session_state['name']
+except:
+    lang1 = ''
+    lang1_words = []
+    lang2 = ''
+    lang2_words = []
+    name = 'creator'
+
+get_basic_module(lang1, lang1_words, lang2, lang2_words, name)
 
 get_footer()
 get_sidebar()
