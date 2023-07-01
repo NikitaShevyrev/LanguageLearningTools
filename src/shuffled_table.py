@@ -53,16 +53,18 @@ def get_shuffled_table(source_words: List[str], translation: List[str]) -> pd.Da
 
     return translation_words_DF
 
-def get_filelike_table(translation_words_DF: pd.DataFrame):
+def get_filelike_table(translation_words_DF: pd.DataFrame, hide_header: bool = True) -> io.BytesIO:
     
-    translation_words_DF.columns = [''] * translation_words_DF.shape[1]
+    if hide_header:
+        translation_words_DF.columns = [''] * translation_words_DF.shape[1]
     translation_words_DF.index = [''] * translation_words_DF.shape[0]
 
+    plt.clf()
     ax = plt.subplot(111, frame_on=False) # no visible frame
     ax.xaxis.set_visible(False)  # hide the x axis
     ax.yaxis.set_visible(False)  # hide the y axis
 
-    table(ax, translation_words_DF, loc='center')  # where df is your data frame
+    table(ax, translation_words_DF, loc='center', cellLoc='center')  # where df is your data frame
 
     file_like = io.BytesIO()
     plt.savefig(file_like, bbox_inches='tight', dpi=200)
