@@ -9,6 +9,7 @@ from glob import glob
 from PIL import Image
 import base64
 from json import load
+import pandas as pd
 
 # >>>> Important functions
 
@@ -191,27 +192,44 @@ def get_basic_module(
 
         st.markdown("---")
 
-        if disabled:
-            filename_part = key.split('.')[0]
-        else:
-            filename_part = "shuffled_table"
+        col3a, col3b = st.columns(2)
 
-        result_filename = st.text_input("Select filename", f"my_{filename_part}", key = f"result_filename_{key}")
-        if not result_filename.endswith(".png"):
-            result_filename += ".png"
+        with col3a:
+            shfl_tbl_filename = st.text_input("Select filename", f"my_shuffled_table", key = f"shfl_tbl_filename_{key}")
+            if not shfl_tbl_filename.endswith(".png"):
+                shfl_tbl_filename += ".png"
+            
+            file_like_shfl_tbl = get_filelike_table(translation_words_DF)
 
-        file_like = get_filelike_table(translation_words_DF)
+            btn2 = st.download_button(
+                label="Download shuffled table", # image
+                data=file_like_shfl_tbl,
+                file_name=shfl_tbl_filename,
+                mime="image/png"
+            )
 
-        btn = st.download_button(
-            label="Download table", # image
-            data=file_like,
-            file_name=result_filename,
-            mime="image/png"
-        )
+        with col3b:
+            src_trns_filename = st.text_input("Select filename", f"my_source_translation_pairs_table", key = f"src_trns_filename_{key}")
+            if not src_trns_filename.endswith(".png"):
+                src_trns_filename += ".png"
+
+            source_translation_DF = pd.DataFrame(
+                data=[[src, trns] for src, trns in zip(source_words, translation)],
+                columns=[source_lang, target_lang]
+            )
+
+            file_like_src_trns = get_filelike_table(source_translation_DF, False)
+
+            btn1 = st.download_button(
+                label=f"Download {langs_dict[source_lang].capitalize()}-{langs_dict[target_lang].capitalize()} pairs table", # image
+                data=file_like_src_trns,
+                file_name=src_trns_filename,
+                mime="image/png"
+            )
     
     # >>>>
 
-def get_accessible_wordpairs_section():
+def get_accessible_wordpairs_section() -> None:
 
     pics_path = "free_materials/preview_pics"
     pics_names = [basename(name) for name in glob(pics_path + "/*.jpg")]
@@ -277,7 +295,6 @@ with tab_eng_rus:
 
 with tab_creator:
     get_data_button('', [], '', [], 'creator')
-    # get_basic_module()
 
 
 placeholder = st.empty()
