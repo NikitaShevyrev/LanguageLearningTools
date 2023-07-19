@@ -1,13 +1,13 @@
 import streamlit as st
 from page_supplementaries import get_sidebar, get_footer
 
-st.title("Language learning tools for practitioners")
+get_sidebar()
 
 st.markdown("""
     ### About project:
-    It's a new approach to learning new words and training grammar issues
-    based on specially integrated repetition techniques. The trainings
-    don't take much time, about 10  minutes a day.
+    We develop new approaches to learning new words and training grammar
+    issues based on specially integrated repetition techniques.
+    The trainings don't take much time, about 10  minutes a day.
 
 """)
 
@@ -51,4 +51,3 @@ st.markdown("""
 """)
 
 get_footer()
-get_sidebar()
