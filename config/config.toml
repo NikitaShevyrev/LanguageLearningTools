@@ -1,0 +1,591 @@
+# Language Learning Tools configuration
+
+# [fruits.physical]
+# color = "red"
+# shape = "round"
+
+[english]
+
+[english.WNL.10_places_in_scotland_part_2]
+extension = ".jpg"
+alias = 'Scotland'
+url = "https://youtu.be/0HUXod6ig_0"
+description = """
+    Some of the best places to visit in Scotland are right here
+    in this Scotland travel video. You'll see Kilchurn castle,
+    the Old man of Storr, Cairngorm National Park and many other
+    tourist attractions!
+"""
+words_to_learn = [
+    'charming',
+    'staff member',
+    'waves onslaught',
+    'scenic location',
+    'irresistible',
+    'farmland',
+    'completely authentic',
+    'conquer',
+    'rocky landscape',
+    'loop'
+]
+
+[english.WNL.10_places_in_scotland_part_2.recommended_translation]
+russian = [
+    'очаровательный',
+    'штатный сотрудник',
+    'натиск волн',
+    'живописное расположение',
+    'непреодолимый',
+    'сельхозугодья',
+    'полностью аутентичный',
+    'покорять',
+    'скалистый ландшафт',
+    'петля'
+]
+
+
+[english.WNL.arches_national_park]
+extension = ".jpg"
+alias = 'Arches'
+url = "https://youtu.be/WwtRH6mgHks"
+description = """
+    Arches National Park - the natural rock formations here
+    crystalize the epic beauty of Mother Nature. Check out the
+    uncut gem of Utah's Canyon Country.
+"""
+words_to_learn = [
+    'amid',
+    'submerge',
+    'cleave',
+    'burnish',
+    'kinship',
+    'cairn',
+    'mosey',
+    'solitude',
+    'shelter',
+    'spiritual sustenance'
+]
+
+[english.WNL.arches_national_park.recommended_translation]
+russian = [
+    'среди',
+    'погружаться',
+    'раскалывать',
+    'полировать',
+    'родство',
+    'груда камней',
+    'сматываться',
+    'одиночество',
+    'приют',
+    'духовная поддержка'
+]
+
+
+[english.WNL.death_valley]
+extension = ".jpg"
+alias = 'Death Valley'
+url = "https://youtu.be/Lh19rOVB0kY"
+description = """
+    Arches National Park - the natural rock formations here
+    crystalize the epic beauty of Mother Nature. Check out
+    the uncut gem of Utah's Canyon Country. 
+"""
+words_to_learn = [
+    'life-affirming',
+    'straddle',
+    'freethinker',
+    'foreboding name',
+    'lump',
+    'vista',
+    'haul',
+    'hurl',
+    'ferocity',
+    'serpentine bends'
+]
+
+[english.WNL.death_valley.recommended_translation]
+russian = [
+    'жизнеутверждающий',
+    'колебаться',
+    'вольнодумец',
+    'зловещее имя',
+    'глыба',
+    'перспектива',
+    'тащить',
+    'швырнуть',
+    'свирепость',
+    'змеевидные изгибы'
+]
+
+
+[english.WNL.everglades]
+extension = ".jpg"
+alias = 'Everglades'
+url = "https://youtu.be/BDHWpkcpvPo"
+description = """
+    At first glance, Everglades National Park appears still
+    and stagnant, but upon closer look, one can find an abundance
+    within. Here visitors can try an exciting journey into one
+    of the wettest and wildest parts of the US - the Everglades.
+"""
+words_to_learn = [
+    'endless',
+    'stillness',
+    'swampy',
+    'primordial',
+    'reserve',
+    'tongue',
+    'brackish',
+    'dazzling',
+    'wade',
+    'hemisphere'
+]
+
+[english.WNL.everglades.recommended_translation]
+russian = [
+    'бесконечный',
+    'неподвижность',
+    'болотистый',
+    'исконный',
+    'заповедник',
+    'язык',
+    'солоноватый',
+    'ослепительный',
+    'пробираться',
+    'полушарие'
+]
+
+
+[english.WNL.grand_teton_national_park]
+extension = ".jpg"
+alias = 'Grand Teton'
+url = "https://youtu.be/79JOt1oQj4E"
+description = """
+    Grand Teton National Park - We explored over 300,000 acres
+    of Wyoming wilderness and found the best spots to visit on
+    vacation here! 
+"""
+words_to_learn = [
+    'serene',
+    'winding river',
+    'jag',
+    'stark',
+    'foothill',
+    'verdant',
+    'forward-thinking',
+    'buckle up',
+    'rustic',
+    'remnant'
+]
+
+[english.WNL.grand_teton_national_park.recommended_translation]
+russian = [
+    'спокойный',
+    'извилистая река',
+    'зазубрить',
+    'абсолютный',
+    'предгорье',
+    'зеленый',
+    'предусмотрительный',
+    'пристегнуться',
+    'деревенский',
+    'пережиток'
+]
+
+
+[english.WNL.oregon_coast]
+extension = ".jpg"
+alias = 'Oregon Coast'
+url = "https://youtu.be/huTUpPE9J4M"
+description = """
+    The Oregon Coast - Discover dynamic shorelines, towering
+    forests and the art of coastal living when you explore
+    Oregon's long and diverse coastline.
+"""
+words_to_learn = [
+    'patina',
+    'legislation',
+    'hamlet',
+    'lumberman',
+    'jetty pylons',
+    'streetscape',
+    'ebb',
+    'shingle',
+    'tumble',
+    'breather'
+]
+
+[english.WNL.oregon_coast.recommended_translation]
+russian = [
+    'патина',
+    'законы',
+    'деревушка',
+    'лесоруб',
+    'пилоны причала',
+    'городской пейзаж',
+    'отлив',
+    'галька',
+    'кувыркаться',
+    'короткая передышка'
+]
+
+
+[english.WNL.patagonia]
+extension = ".jpg"
+alias = 'Patagonia'
+url = "https://youtu.be/nD_dFyfOXIo"
+description = """
+    Patagonia - travel here to the land that time forgot and set
+    out on the journey of a lifetime where Mother Nature runs
+    the show. 
+"""
+words_to_learn = [
+    'at the fabled edge',
+    'await',
+    'sparsely inhabited',
+    'capture the imagination',
+    'feel dwarfed',
+    'mighty volcanoes',
+    'lapping waves',
+    'mesmerizing',
+    'solitary "gauchos"',
+    'spellbound landscape'
+]
+
+[english.WNL.patagonia.recommended_translation]
+russian = [
+    'в сказочном краю',
+    'ожидать',
+    'малонаселенный',
+    'захватывать воображение',
+    'чувствовать себя карликом',
+    'громадные вулканы',
+    'плескающиеся волны',
+    'гипнотизирующий',
+    'одинокие скотоводы',
+    'зачаровывающий пейзаж'
+]
+
+
+[english.speech.A1.nouns.exercise_1]
+words_to_learn = [
+    'man',
+    'time',
+    'face',
+    'eye',
+    'hand',
+    'room',
+    'place',
+    'year',
+    'foot',
+    'night'
+]
+
+[english.speech.A1.nouns.exercise_1.recommended_translation]
+russian = [
+    'мужчина',
+    'время',
+    'лицо',
+    'глаз',
+    'рука',
+    'комната',
+    'место',
+    'год',
+    'ступня',
+    'ночь'
+]
+
+
+[english.speech.A1.verbs.exercise_1]
+words_to_learn = [
+    'go',
+    'come',
+    'be',
+    'do',
+    'make',
+    'invite',
+    'visit',
+    'open',
+    'close',
+    'shut'
+]
+
+[english.speech.A1.verbs.exercise_1.recommended_translation]
+russian = [
+    'идти',
+    'приходить',
+    'быть',
+    'делать',
+    'производить',
+    'приглашать',
+    'посещать',
+    'открывать',
+    'закрывать',
+    'запирать'
+]
+
+
+[english.speech.B1.adjectives.exercise_1]
+words_to_learn = [
+    'certain',
+    'alive',
+    'still',
+    'general',
+    'main',
+    'tiny',
+    'likely',
+    'sharp',
+    'live',
+    'loose'
+]
+
+[english.speech.B1.adjectives.exercise_1.recommended_translation]
+russian = [
+    'определённый',
+    'живой',
+    'неподвижный',
+    'общий',
+    'главный',
+    'крошечный',
+    'вероятный',
+    'острый',
+    'живой',
+    'свободный'
+]
+
+
+[english.speech.B1.nouns.exercise_1]
+words_to_learn = [
+    'shoulder',
+    'human',
+    'ground',
+    'point',
+    'thought',
+    'step',
+    'lip',
+    'fear',
+    'couple',
+    'care'
+]
+
+[english.speech.B1.nouns.exercise_1.recommended_translation]
+russian = [
+    'плечо',
+    'человек',
+    'земля',
+    'точка',
+    'мысль',
+    'шаг',
+    'губа',
+    'страх',
+    'пара',
+    'забота'
+]
+
+
+[english.speech.B1.verbs.exercise_1]
+words_to_learn = [
+    'seem',
+    'wonder',
+    'realise',
+    'drop',
+    'raise',
+    'expect',
+    'hang',
+    'lift',
+    'wave',
+    'slip'
+]
+
+[english.speech.B1.verbs.exercise_1.recommended_translation]
+russian = [
+    'казаться',
+    'удивляться',
+    'осознавать',
+    'бросать',
+    'повышать',
+    'ожидать',
+    'вешать',
+    'поднимать',
+    'махать',
+    'соскальзывать'
+]
+
+[english.grammar.A1.degree_of_comparison.exercise_1]
+words_to_learn = [
+    'happier',
+    'fatter',
+    'more wonderful',
+    'better',
+    'worse',
+    'more important',
+    'older',
+    'slower',
+    'faster',
+    'thinner'
+]
+
+[english.grammar.A1.degree_of_comparison.exercise_1.recommended_translation]
+entity_to_translate = [
+    'happy',
+    'fat',
+    'wonderful',
+    'good',
+    'bad',
+    'important',
+    'old',
+    'slow',
+    'fast',
+    'thin'
+]
+
+[english.grammar.A1.plurals.exercise_1]
+words_to_learn = [
+    'men',
+    'tables',
+    'windows',
+    'phones',
+    'pens',
+    'kettles',
+    'houses',
+    'foxes',
+    'matches',
+    'stories'
+]
+
+[english.grammar.A1.plurals.exercise_1.recommended_translation]
+entity_to_translate = [
+    'man',
+    'table',
+    'window',
+    'phone',
+    'pen',
+    'kettle',
+    'house',
+    'fox',
+    'match',
+    'story'
+]
+
+
+[turkish]
+
+[turkish.WNL.nezahat_gokyigit_botanik_bahcesi]
+extension = ".jpg"
+alias = 'Nezahat Gökyiğit'
+url = "https://www.youtube.com/watch?v=NqOzqTPzrK0"
+description = """
+    The Nezahat Gökyiğit Botanical Garden is not only one of the
+    secret gardens of Istanbul but also is a social initiative
+    of the Ali Nihat Gökyiğit Foundation (ANG) aimed at conserving
+    biological diversity and informing the public on this subject.
+"""
+words_to_learn = [
+    'biridir',
+    'önemli',
+    'yer',
+    'alan',
+    'bir',
+    'meşe',
+    'adasi',
+    'tüm',
+    'sizi'
+]
+
+[turkish.WNL.nezahat_gokyigit_botanik_bahcesi.recommended_translation]
+russian = [
+    'один из них',
+    'важный',
+    'место',
+    'область',
+    'один',
+    'дуб',
+    'остров',
+    'все',
+    'ноющая боль'
+]
+
+[turkish.WNL.tunceli_gezilecek_yerler]
+extension = ".jpg"
+alias = 'Tunceli'
+url = "https://www.youtube.com/watch?v=QNT5JzBpgpQ"
+description = """
+    Tunceli, has many beautiful places that many of visitors are
+    perhaps unaware of. Those who come to Tunceli generally miss
+    a lot, but this video aim is both to guide them and to introduce
+    the sights of the beautiful town - Tunceli.
+"""
+words_to_learn = [
+    'gezilecek',
+    'huzur',
+    'almakta',
+    'yol',
+    'proje',
+    'park',
+    'doğal',
+    'zaman',
+    'su'
+]
+
+[turkish.WNL.tunceli_gezilecek_yerler.recommended_translation]
+russian = [
+    'достопримечательности',
+    'мир',
+    'принимая',
+    'путь',
+    'проект',
+    'парк',
+    'естественный',
+    'время',
+    'вода'
+]
+
+[turkish.speech.A1.nouns.days_of_the_week]
+words_to_learn = [
+    'pazartesi',
+    'salı',
+    'çarşamba',
+    'perşembe',
+    'cuma',
+    'cumartesi',
+    'pazar'
+]
+
+[turkish.speech.A1.nouns.days_of_the_week.recommended_translation]
+russian = [
+    'понедельник',
+    'вторник',
+    'среда',
+    'четверг',
+    'пятница',
+    'суббота',
+    'воскресенье'
+]
+
+[turkish.speech.A1.phrases.greetings]
+words_to_learn = [
+    'selam',
+    'merhaba',
+    'günaydın',
+    'iyi günler',
+    'tünaydın',
+    'iyi akşamlar',
+    'nasılsın?',
+    'iyiyim',
+    'teşekkürler',
+    'nasılsın?'
+]
+
+[turkish.speech.A1.phrases.greetings.recommended_translation]
+russian = [
+    'привет',
+    'здравствуйте',
+    'доброе утро',
+    'добрый день',
+    'добрый день (после 12:00)',
+    'добрый вечер',
+    'как поживаешь?',
+    'я - хорошо',
+    'спасибо',
+    'как вы поживаете?'
+]
