@@ -1,0 +1,25 @@
+# HOWTO configurations
+
+[howto.shuffled_table.learn.step_1]
+pic_path = "free_materials/howto_pics/open_tables.png"
+description_path = "free_materials/howto_pics/open_tables_2.png"
+
+[howto.shuffled_table.learn.step_2]
+pic_path = "free_materials/howto_pics/timer_on.png"
+description_path = "free_materials/howto_pics/timer_on_2.png"
+
+[howto.shuffled_table.learn.step_3]
+pic_path = "free_materials/howto_pics/say_translation.png"
+description_path = "free_materials/howto_pics/say_translation_2.png"
+
+[howto.shuffled_table.learn.step_4]
+pic_path = "free_materials/howto_pics/timer_off.png"
+description_path = "free_materials/howto_pics/timer_off_2.png"
+
+[howto.shuffled_table.learn.step_5]
+pic_path = "free_materials/howto_pics/repeat.png"
+description_path = "free_materials/howto_pics/repeat_2.png"
+
+[howto.shuffled_table.learn.step_6]
+pic_path = "free_materials/howto_pics/have_fun.png"
+description_path = "free_materials/howto_pics/have_fun_2.png"

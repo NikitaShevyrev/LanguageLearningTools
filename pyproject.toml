@@ -12,6 +12,8 @@ matplotlib = "^3.7.1"
 pandas = "^2.0.2"
 streamlit = "^1.23.1"
 deep-translator = "^1.11.1"
+tomli = "^2.0.1"
+st-pages = "^0.4.3"
 
 
 [build-system]
