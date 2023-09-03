@@ -7,7 +7,8 @@ import pandas as pd
 from gforms import Form
 from gforms.elements import Value
 
-url = 'https://docs.google.com/forms/d/e/1FAIpQLSep762IUaVGBDbuO_JqC4xO0AU63HU14n22Ime0N49LYKHnng/viewform'
+url_gform = 'https://docs.google.com/forms/d/e/1FAIpQLSep762IUaVGBDbuO_JqC4xO0AU63HU14n22Ime0N49LYKHnng/viewform'
+url_gtable = 'https://docs.google.com/spreadsheets/d/1BnTx2pRWDICfhw77z8IlOzk1R7uKhEd8nw9H1Buq-dU/edit?usp=sharing'
 results_sent = False
 
 class Filler:
@@ -67,39 +68,11 @@ class Filler:
 def check_uniqueness(username: str) -> bool:
     conn = st.experimental_connection("gsheets", type=GSheetsConnection)
     try:
-        usernames = conn.read(spreadsheet=url, usecols=[1])
+        usernames = conn.read(spreadsheet=url_gtable, usecols=[1])
         unique_usernames = pd.unique(usernames[usernames.columns[0]])
     except:
         unique_usernames = []
     return username in unique_usernames
-
-# def submit_result(total_seconds: int) -> bool:
-#     try:
-#         user_name = st.session_state['user_name']
-#         st.write('user_name', user_name)
-
-#         st.write('total_seconds', total_seconds)
-
-#         section = st.session_state['section']
-#         st.write('section', section)
-        
-#         languages = st.session_state['current_source_translation_table'].columns
-#         target_lang, fluent_lang = languages
-#         st.write('target_lang', target_lang, 'fluent_lang', fluent_lang)
-
-#         video = st.session_state['name'] if section == 'Watch & Learn' else 'none'
-#         st.write('video', video)
-
-#         proficiency = st.session_state['proficiency'] if section in ['Become Grammar Pro', 'Master Parts of Speech'] else 'none'
-#         unit = st.session_state['unit'] if section in ['Become Grammar Pro', 'Master Parts of Speech'] else 'none'
-#         st.write('proficiency', proficiency, 'unit', unit)
-
-#         exercise = st.session_state['name'] if section in ['Become Grammar Pro', 'Master Parts of Speech'] else 'none'
-#         st.write('exercise', exercise)
-        
-#     except:
-#         pass
-
 
 get_sidebar()
 
@@ -215,7 +188,7 @@ else:
                 try:
                     filler = Filler(total_seconds)
                     form = Form()
-                    form.load(url)
+                    form.load(url_gform)
                     form.fill(filler.callback)
                     form.submit()
                     results_sent = True
