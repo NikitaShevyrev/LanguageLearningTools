@@ -31,6 +31,7 @@ def get_sidebar() -> None:
             Page("pages/become_grammar_pro.py", "Become Grammar Pro"),
             Page("pages/master_parts_of_speech.py", "Master Parts of Speech"),
             Page("pages/create_own_table.py", "Create Own Table"),
+            Page("pages/practice.py", "Practice"),
             # Unless you explicitly say in_section=False
             # Page("Not in a section", in_section=False)
         ]
@@ -60,7 +61,14 @@ def get_footer() -> None:
     """)
 
 def get_data_button(
-    lang1: str, lang1_words: List[str], lang2: str, lang2_words: List[str], name: str
+    lang1: str,
+    lang1_words: List[str],
+    lang2: str,
+    lang2_words: List[str],
+    name: str,
+    section: str ="",
+    proficiency: str = "none",
+    unit: str = "none"
 ) -> None:
 
     data_btn = st.button("Let's shuffle", key=f"data_btn_{name}")
@@ -70,6 +78,9 @@ def get_data_button(
         st.session_state['lang2'] = lang2
         st.session_state['lang2_words'] = lang2_words
         st.session_state['name'] = name
+        st.session_state['section'] = section
+        st.session_state['proficiency'] = proficiency
+        st.session_state['unit'] = unit
 
         try:
             del st.session_state[f'language_1_{name}'], st.session_state[f'language_2_{name}']
@@ -255,6 +266,7 @@ def get_basic_module(
     if num_words_to_learn > 0:
 
         translation_words_DF = get_shuffled_table(source_words, translation)
+        st.session_state['current_shuffled_table'] = translation_words_DF
 
         with st.expander("Show result"):
             st.markdown(translation_words_DF.style.hide(axis='index').hide(axis='columns').to_html(), unsafe_allow_html=True)
@@ -286,6 +298,7 @@ def get_basic_module(
                 data=[[src, trns] for src, trns in zip(source_words, translation)],
                 columns=[source_lang, target_lang]
             )
+            st.session_state['current_source_translation_table'] = source_translation_DF
 
             file_like_src_trns = get_filelike_table(source_translation_DF, False)
 
@@ -361,7 +374,8 @@ def get_watch_and_learn_section(want_to_learn_lang: str, fluent_lang: str) -> No
                         lang1_words = lang1_words,
                         lang2 = fluent_lang,
                         lang2_words = lang2_words,
-                        name = name
+                        name = name,
+                        section = "Watch & Learn"
                     )
                     if st.session_state[f'data_btn_{name}']:
                         delete_data_from_sessionstate(name, pics_names)
@@ -398,12 +412,17 @@ def get_simple_section(want_to_learn_lang: str, fluent_lang: str, keys: List[str
             else:
                 lang2_words = ["no_translation" for i in range(len(lang1_words))]
             
+            section_options = {'grammar' : 'Become Grammar Pro', 'speech' : 'Master Parts of Speech'}
+            
             get_data_button(
                 lang1 = want_to_learn_lang,
                 lang1_words = lang1_words,
                 lang2 = fluent_lang,
                 lang2_words = lang2_words,
-                name = name
+                name = name,
+                section = section_options[keys[0]],
+                proficiency = keys[1],
+                unit = keys[2]
             )
             if st.session_state[f'data_btn_{name}']:
                 delete_data_from_sessionstate(name, tab_names)
