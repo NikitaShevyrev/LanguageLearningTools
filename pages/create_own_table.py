@@ -38,7 +38,7 @@ st.markdown("""
     
 """)
 
-get_data_button('', [], '', [], 'creator')
+get_data_button('', [], '', [], 'creator', "Create Own Table")
 
 try:
     lang1 = st.session_state['lang1']
