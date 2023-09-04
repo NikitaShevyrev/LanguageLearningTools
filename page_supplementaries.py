@@ -32,6 +32,7 @@ def get_sidebar() -> None:
             Page("pages/master_parts_of_speech.py", "Master Parts of Speech"),
             Page("pages/create_own_table.py", "Create Own Table"),
             Page("pages/practice.py", "Practice"),
+            Page("pages/results.py", "Results"),
             # Unless you explicitly say in_section=False
             # Page("Not in a section", in_section=False)
         ]
