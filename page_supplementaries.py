@@ -61,6 +61,10 @@ def get_footer() -> None:
     📧 Email: n.shevyrev@gmail.com
     """)
 
+def remove_from_session_state(key: str) -> None:
+    if key in st.session_state.keys():
+        del st.session_state[key]
+
 def get_data_button(
     lang1: str,
     lang1_words: List[str],
@@ -69,10 +73,11 @@ def get_data_button(
     name: str,
     section: str ="",
     proficiency: str = "none",
-    unit: str = "none"
+    unit: str = "none",
+    button_name: str = "Let's shuffle"
 ) -> None:
 
-    data_btn = st.button("Let's shuffle", key=f"data_btn_{name}")
+    data_btn = st.button(button_name, key=f"data_btn_{name}")
     if data_btn:        
         st.session_state['lang1'] = lang1
         st.session_state['lang1_words'] = lang1_words
@@ -82,12 +87,21 @@ def get_data_button(
         st.session_state['section'] = section
         st.session_state['proficiency'] = proficiency
         st.session_state['unit'] = unit
+        st.session_state[f"num_words_to_learn_{name}"] = len(lang1_words)
 
-        try:
-            del st.session_state[f'language_1_{name}'], st.session_state[f'language_2_{name}']
-            del st.session_state[f'source_words_{name}'], st.session_state[f'translation_{name}']
-        except:
-            pass
+        remove_from_session_state(f'language_1_{name}')
+        remove_from_session_state(f'language_2_{name}')
+        remove_from_session_state(f'source_words_{name}')
+        remove_from_session_state(f'translation_{name}')
+        remove_from_session_state('current_source_translation_table')
+        
+        source_input_keys = [elem for elem in st.session_state.keys() if elem.startswith('input')]
+        for source_input_key in source_input_keys:
+            remove_from_session_state(source_input_key)
+        
+        translation_keys = [elem for elem in st.session_state.keys() if elem.startswith('translate')]
+        for translation_key in translation_keys:
+            remove_from_session_state(translation_key)
 
 def delete_data_from_sessionstate(name: str, all_names: List[str]) -> None:
 
@@ -97,6 +111,23 @@ def delete_data_from_sessionstate(name: str, all_names: List[str]) -> None:
         if f'language_1_{del_key}' in st.session_state.keys():
             del st.session_state[f'language_1_{del_key}'], st.session_state[f'language_2_{del_key}']
             del st.session_state[f'source_words_{del_key}'], st.session_state[f'translation_{del_key}']
+
+def update_translation(target_widget_key: str, source_lang: str, target_lang: str) -> None:
+    
+    translation_key = f"translate{target_widget_key.split('input')[1]}"
+    if target_widget_key in st.session_state.keys():
+        translation = GoogleTranslator(
+            source = langs_dict[source_lang], target = langs_dict[target_lang]
+        ).translate(st.session_state[target_widget_key])
+        st.session_state[translation_key] = translation
+
+def control_current_source_translation_table(widget_key: str) -> None:
+    if (
+        st.session_state.get(widget_key) == 0
+        and 'current_source_translation_table' in st.session_state.keys()
+    ):
+        del st.session_state['current_source_translation_table']
+
 
 def get_basic_module(
     predefined_source_lang: str = "",
@@ -116,31 +147,43 @@ def get_basic_module(
         raise Exception("Predefined lists should have the same length.")
     
     
-    if len(predefined_source_words) == 0:
+    if ((len(predefined_source_words) == 0) or (key == "creator")):
         disabled = False
     else:
         disabled = True
-
+    
     with st.expander("Create group of words"):
+        
+        if f"num_words_to_learn_{key}" not in st.session_state.keys():
+            st.session_state[f"num_words_to_learn_{key}"] = 0
+        
+        st.number_input(
+            "Select number of words to learn",
+            min_value = 0,
+            step = 1,
+            key = f'num_words_to_learn_{key}',
+            disabled = disabled,
+            on_change=control_current_source_translation_table,
+            args=[f'num_words_to_learn_{key}']
+        )
 
-        if disabled:
-            num_words_to_learn = st.number_input(
-                "Select number of words to learn",
-                min_value = 0,
-                value = len(predefined_source_words),
-                step = 1,
-                disabled = disabled,
-                key = f"num_words_to_learn_{key}"
-            )
+        # check input translate keys in session state
+        # if there are no such keys, words_num > 0
+        # take from predefined words
 
-        else:
-            num_words_to_learn = st.number_input(
-                "Select number of words to learn",
-                min_value = 0,
-                step = 1,
-                key=f"num_words_to_learn_{key}"
-            )
+        input_keys = [elem for elem in st.session_state.keys() if elem.startswith('input') and elem.endswith(key)]
+        translate_keys = [elem for elem in st.session_state.keys() if elem.startswith('translate') and elem.endswith(key)]
 
+        if (
+            len(input_keys) == 0
+            and len(translate_keys) == 0
+            and st.session_state[f"num_words_to_learn_{key}"] > 0
+            and st.session_state[f"num_words_to_learn_{key}"] == len(predefined_source_words)
+        ):
+            for i in range(st.session_state[f"num_words_to_learn_{key}"]):
+                st.session_state[f"input{i}_{key}"] = predefined_source_words[i]
+                st.session_state[f"translate{i}_{key}"] = predefined_translation[i]
+        
         col0a, col0b, col0c, col0d = st.columns([0.1, 0.37, 0.11, 0.42])
 
         col1a, col1b = st.columns(2)
@@ -160,13 +203,16 @@ def get_basic_module(
 
         with col0c:
             swap_button = st.button(":left_right_arrow:", key=f"swap_{key}")
+            
             if swap_button:
                 st.session_state[f'language_1_{key}'], st.session_state[f'language_2_{key}'] = (
                     st.session_state[f'language_2_{key}'], st.session_state[f'language_1_{key}']
                 )
-                st.session_state[f'source_words_{key}'], st.session_state[f'translation_{key}'] = (
-                    st.session_state[f'translation_{key}'], st.session_state[f'source_words_{key}']
-                )
+
+                for i in range(st.session_state[f"num_words_to_learn_{key}"]):
+                    st.session_state[f"input{i}_{key}"], st.session_state[f"translate{i}_{key}"] = (
+                        st.session_state[f"translate{i}_{key}"], st.session_state[f"input{i}_{key}"]
+                    )
         
 
         with col0d:
@@ -217,31 +263,50 @@ def get_basic_module(
 
 
         col2a, col2b = st.columns(2)
-        
 
         with col2a:
             try:
                 if disabled:
-                    source_values = st.session_state[f'source_words_{key}']
+                    # for i in range(st.session_state[f"num_words_to_learn_{key}"]):
+                    #     st.session_state[f"input{i}_{key}"] = st.session_state[f'source_words_{key}'][i]                    
+                    pass
+                
                 else:
                     source_words_num = len(st.session_state[f'source_words_{key}'])
-                    if source_words_num >= num_words_to_learn:
-                        source_values = st.session_state[f'source_words_{key}']
+                    
+                    if source_words_num >= st.session_state[f"num_words_to_learn_{key}"]:
+                        for i in range(st.session_state[f"num_words_to_learn_{key}"], source_words_num):
+                            del st.session_state[f"input{i}_{key}"]
+                    
                     else:
-                        source_values = st.session_state[f'source_words_{key}'] + ['word' for _ in range(num_words_to_learn-source_words_num)]
+                        for i in range(source_words_num, st.session_state[f"num_words_to_learn_{key}"]):
+                            st.session_state[f"input{i}_{key}"] = 'word'
             
             except:
                 if disabled:
-                    source_values = predefined_source_words
+                    for i in range(st.session_state[f"num_words_to_learn_{key}"]):
+                        st.session_state[f"input{i}_{key}"] = predefined_source_words[i]
+                
                 else:
-                    source_values = ['word' for _ in range(num_words_to_learn)]
-            
+                    for i in range(st.session_state[f"num_words_to_learn_{key}"]):
+                        st.session_state[f"input{i}_{key}"] = 'word'
+                
             source_words = [
-                st.text_input("Write a word to learn", source_values[i], key=f"input{i}_{key}", disabled=disabled)
-                for i in range(num_words_to_learn)
+                st.text_input(
+                    "Write a word to learn",
+                    key=f"input{i}_{key}",
+                    disabled=disabled,
+                    on_change=update_translation,
+                    args=[f"input{i}_{key}", source_lang, target_lang]
+                )
+                for i in range(st.session_state[f"num_words_to_learn_{key}"])
             ]
             st.session_state[f'source_words_{key}'] = source_words
-        
+
+            # # delete source words that are 
+            # irrelevant_keys = [elem for elem in st.session_state.keys() if elem.startswith("input") and not elem.endswith(key)]
+            # for irr_key in irrelevant_keys:
+            #     del st.session_state[irr_key]
 
         with col2b:
             if disabled:
@@ -255,16 +320,23 @@ def get_basic_module(
                     GoogleTranslator(source = langs_dict[source_lang], target = langs_dict[target_lang]).translate(elem)
                     for elem in source_words
                 ]
+            
+            for i in range(st.session_state[f"num_words_to_learn_{key}"]):
+                if f"translate{i}_{key}" not in st.session_state.keys():
+                    st.session_state[f"translate{i}_{key}"] = st.session_state[f"input{i}_{key}"]
+                
+                if st.session_state[f"translate{i}_{key}"] == st.session_state[f"input{i}_{key}"]:
+                    st.session_state[f"translate{i}_{key}"] = offer_translation[i]
 
             translation = [
-                st.text_input("Translation [change if wrong]", value=offer_translation[i], key=f"translate{i}_{key}") # , disabled=disabled
-                for i in range(num_words_to_learn)
+                st.text_input("Translation [change if wrong]", key=f"translate{i}_{key}") # , disabled=disabled
+                for i in range(st.session_state[f"num_words_to_learn_{key}"])
             ]
             st.session_state[f'translation_{key}'] = translation
-
-
+    
+    
     # >>>> main
-    if num_words_to_learn > 0:
+    if st.session_state[f"num_words_to_learn_{key}"] > 0:
 
         translation_words_DF = get_shuffled_table(source_words, translation)
         st.session_state['current_shuffled_table'] = translation_words_DF
