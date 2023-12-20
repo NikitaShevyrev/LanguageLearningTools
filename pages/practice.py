@@ -29,7 +29,7 @@ class Filler:
         
         self.unit = st.session_state['unit'] if self.section in ['Become Grammar Pro', 'Master Parts of Speech'] else 'none'
         
-        self.exercise = st.session_state['name'] if self.section in ['Become Grammar Pro', 'Master Parts of Speech'] else 'none'
+        self.exercise = st.session_state['name'] if self.section in ['Become Grammar Pro', 'Master Parts of Speech', 'Own Table'] else 'none'
 
     def callback(self, element, page_index, element_index):
         # fill an element based on its position
@@ -66,7 +66,7 @@ class Filler:
         return result
 
 def check_uniqueness(username: str) -> bool:
-    conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+    conn = st.connection("gsheets", type=GSheetsConnection)
     try:
         usernames = conn.read(spreadsheet=url_gtable, usecols=[1])
         unique_usernames = pd.unique(usernames[usernames.columns[0]])
@@ -132,10 +132,8 @@ else:
         tab_shuffled_table, tab_translation = st.tabs(['Shuffled Table', 'Translation Table'])
 
         with tab_shuffled_table:
-            # shuffled_table = st.session_state['current_shuffled_table'].copy()
-            # shuffled_table.columns = [f'Column {i}' for i in range(len(shuffled_table.columns))]
-            # st.dataframe(shuffled_table, hide_index=True)
-            st.markdown(st.session_state['current_shuffled_table'].style.hide(axis='index').hide(axis='columns').to_html(), unsafe_allow_html=True)
+            shuffled_table = st.session_state['current_shuffled_table'].copy()
+            st.markdown(shuffled_table.style.hide(axis='index').hide(axis='columns').to_html(), unsafe_allow_html=True)
 
         with tab_translation:
             st.dataframe(st.session_state['current_source_translation_table'], hide_index=True)

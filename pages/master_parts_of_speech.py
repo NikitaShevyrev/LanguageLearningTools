@@ -9,6 +9,20 @@ from page_supplementaries import (
 )
 from config import config as CFG
 
+source_input_keys = [elem for elem in st.session_state.keys() if elem.startswith('input')]
+for source_input_key in source_input_keys:
+    if source_input_key in st.session_state.keys():
+        st.session_state[source_input_key] = st.session_state[source_input_key]
+
+name = st.session_state["name"] if 'name' in st.session_state.keys() else 'creator'
+if f'num_words_to_learn_{name}' in st.session_state.keys():
+    st.session_state[f'num_words_to_learn_{name}'] = st.session_state[f'num_words_to_learn_{name}']
+
+translation_keys = [elem for elem in st.session_state.keys() if elem.startswith('translate')]
+for translation_key in translation_keys:
+    if translation_key in st.session_state.keys():
+        st.session_state[translation_key] = st.session_state[translation_key]
+
 get_sidebar()
 
 st.markdown("""
@@ -91,17 +105,31 @@ else:
     st.warning("No materials avialable found")
 
 try:
-    lang1 = st.session_state['lang1']
-    lang1_words = st.session_state['lang1_words']
-    lang2 = st.session_state['lang2']
-    lang2_words = st.session_state['lang2_words']
+    if 'current_source_translation_table' not in st.session_state.keys():
+        lang1 = st.session_state['lang1']
+        lang1_words = st.session_state['lang1_words']
+        lang2 = st.session_state['lang2']
+        lang2_words = st.session_state['lang2_words']
+    
+    else:
+        lang1 = st.session_state['current_source_translation_table'].columns[0]
+        lang1_words = list(st.session_state['current_source_translation_table'].iloc[:,0].values)
+        lang2 = st.session_state['current_source_translation_table'].columns[1]
+        lang2_words = list(st.session_state['current_source_translation_table'].iloc[:,1].values)
+        
+    
     name = st.session_state['name']
+    if f'num_words_to_learn_{name}' not in st.session_state.keys():
+        st.session_state[f'num_words_to_learn_{name}'] = len(lang1_words)
+
+
 except:
     lang1 = ''
     lang1_words = []
     lang2 = ''
     lang2_words = []
     name = 'creator'
+    st.session_state['name'] = name
 
 get_basic_module(lang1, lang1_words, lang2, lang2_words, name)
 

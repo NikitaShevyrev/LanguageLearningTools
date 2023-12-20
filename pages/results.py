@@ -21,7 +21,7 @@ def retreive_records(df: pd.DataFrame, key: str, sort_options: dict) -> pd.DataF
         df = df[condn_mask]
     return df
 
-conn = st.experimental_connection("gsheets", type=GSheetsConnection)
+conn = st.connection("gsheets", type=GSheetsConnection)
 try:
     df = conn.read(spreadsheet=url, usecols=[0,1,2,3,4,5,6,7,8,9])
     
@@ -33,6 +33,8 @@ try:
     df['Attempt - Time Spent, sec'] = df['Attempt - Time Spent, sec'].apply(lambda x: x.split(' ')[-1])
     df.rename(columns={'Attempt - Time Spent, sec': 'Attempt - Time Spent, HH:MM:SS'}, inplace=True)
     df = df.iloc[:,[0,1,10,2,3,4,5,6,7,8,9]]
+
+    df.rename(columns={'Отметка времени': "Timestamp"}, inplace=True)
     
     columns = [col for col in df.columns if not col.startswith('Attempt')]
 
@@ -41,16 +43,16 @@ try:
 
     sort_options = {}
     # add filtering
-    if 'Отметка времени' in sort_by:
-        min_val = df['Отметка времени'].min()
-        max_val = df['Отметка времени'].max()
+    if 'Timestamp' in sort_by:
+        min_val = df['Timestamp'].min()
+        max_val = df['Timestamp'].max()
         accepted_time_interval = (min_val, max_val)
         (min_date_choice, max_date_choice) = st.date_input(
             "Select time interval to find records:", value=accepted_time_interval, min_value=min_val, max_value=max_val
         )
         min_date_choice = pd.Timestamp(min_date_choice)
         max_date_choice = pd.Timestamp(year=max_date_choice.year, month=max_date_choice.month, day=max_date_choice.day, hour=23, minute=59, second=59)
-        df = df[(pd.Timestamp(min_date_choice) <= df['Отметка времени']) & (df['Отметка времени'] <= pd.Timestamp(max_date_choice))]
+        df = df[(pd.Timestamp(min_date_choice) <= df['Timestamp']) & (df['Timestamp'] <= pd.Timestamp(max_date_choice))]
 
     if 'User Name' in sort_by:
         sort_options['User Name'] = st.multiselect("Select user(-s) to find records:", get_unique_vals(df, 'User Name'))
