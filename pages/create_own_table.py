@@ -119,7 +119,7 @@ st.markdown("""
 def get_usernames() -> list:
     conn = st.connection("gsheets", type=GSheetsConnection)
     try:
-        usernames = conn.read(spreadsheet=url_gtable, usecols=[1])
+        usernames = conn.read(spreadsheet=url_gtable, usecols=[1], ttl=0)
         unique_usernames = pd.unique(usernames[usernames.columns[0]])
         unique_usernames = list(unique_usernames)
     except:
@@ -176,7 +176,7 @@ with st.container(border=True):
 
         conn = st.connection("gsheets", type=GSheetsConnection)
         try:
-            df = conn.read(spreadsheet=url_gtable, usecols=list(range(25)))
+            df = conn.read(spreadsheet=url_gtable, usecols=list(range(25)), ttl=0)
 
             df['Отметка времени'] = pd.to_datetime(df['Отметка времени'], format='%d.%m.%Y %H:%M:%S')
 
