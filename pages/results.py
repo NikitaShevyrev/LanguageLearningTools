@@ -23,7 +23,7 @@ def retreive_records(df: pd.DataFrame, key: str, sort_options: dict) -> pd.DataF
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 try:
-    df = conn.read(spreadsheet=url, usecols=[0,1,2,3,4,5,6,7,8,9])
+    df = conn.read(spreadsheet=url, usecols=[0,1,2,3,4,5,6,7,8,9], ttl=0)
     
     df['Отметка времени'] = pd.to_datetime(df['Отметка времени'], format='%d.%m.%Y %H:%M:%S')
     
